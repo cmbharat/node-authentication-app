@@ -30,7 +30,17 @@ const passport = require("passport");
 // );
 
 
-
+router.get("/",checkAuthenticated,(req,res)=>{
+    res.render("index.ejs",{
+        name:req.user.name
+    })
+})
+function checkAuthenticated(req,res,next){
+    if(req.isAuthenticated()){
+        return next();
+    }
+    res.redirect("/login")
+}
 
 
 router.get("/register",checkNotAuthenticated,(req,res)=>{
